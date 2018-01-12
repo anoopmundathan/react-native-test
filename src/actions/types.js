@@ -1,0 +1,1 @@
+export const FETCH_QUEUE_DATA = 'FETCH_QUEUE_DATA'
