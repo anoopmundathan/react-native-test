@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
 
-import { SearchBar } from 'react-native-elements'
 import { Seperator } from './Seperator'
 import { ListItem } from './ListItem'
+import Search from './Search'
 
 import { getCustomers } from '../actions/queue_actions'
 
 class Main extends Component {
   state = {
-    loaded: false
+    loaded: false,
+    text: ''
   }
 
   componentDidMount() {
@@ -19,11 +20,14 @@ class Main extends Component {
         this.setState({ loaded: true })
       })
   }
-
+  
   render() {
-    const { loaded } = this.state
-    const { customers } = this.props
-    
+    const { loaded, text } = this.state
+    let customers = this.props.customers
+    customers = customers.filter(cust => {
+      return cust.name.toLowerCase().indexOf(text.toLowerCase()) !== -1
+    })
+  
     if(!loaded) {
       return(
         <ActivityIndicator />
@@ -32,12 +36,14 @@ class Main extends Component {
 
     return(
       <View style={styles.container}>
-        <FlatList 
-          data={customers}
-          renderItem={({ item }) => <ListItem {...item} />}
-          keyExtractor={item => item.email}
-          ItemSeparatorComponent={() => <Seperator />}
-          ListHeaderComponent={() => <SearchBar lightTheme placeholder='Search' />} />
+        <Search onChange={text => this.setState({ text })} />
+        <View style={{flex: 1, marginLeft: '5%'}}>
+          <FlatList 
+            data={customers}
+            renderItem={({ item }) => <ListItem {...item} />}
+            keyExtractor={item => item.email}
+            ItemSeparatorComponent={() => <Seperator />} />
+        </View>
       </View>
     )
   }
@@ -60,7 +66,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Main)
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: '10%',
-    paddingLeft: '5%'
+    marginTop: '10%'
   }
 })

@@ -3,7 +3,6 @@ import { FETCH_CUSTOMERS } from '../actions/types'
 
 const customers = (state=[], action) => {
   const { customers } = action
-  
   switch(action.type) {
     case FETCH_CUSTOMERS:
       return customers
