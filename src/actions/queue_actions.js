@@ -3,7 +3,6 @@ import {
   FETCH_CUSTOMERS_ERROR } from './types'
 
 import { fetchCustomersToday } from '../utils/api'
-import { pipe, lower, trim, md5Hash } from '../utils/helpers'
 
 export const getCustomers = () => async dispatch  => {
     const data = await fetchCustomersToday()
