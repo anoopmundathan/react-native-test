@@ -2,13 +2,13 @@ import base64 from 'base-64'
 
 export const userName = 'codetest1'
 export const password = 'codetest100'
-export const apiUrl = 'https://app.qudini.com/api/queue/gj9fs'
+export const qApiUrl = 'https://app.qudini.com/api/queue/gj9fs'
 
 // GET - fetch today's customers
 export const fetchCustomersToday = async () => {
   
   try {
-    let response = await fetch(apiUrl, { 
+    let response = await fetch(qApiUrl, { 
       method: 'GET',
       headers: {
         'Authorization': 'Basic '+ base64.encode(userName + ":" + password), 
@@ -17,7 +17,7 @@ export const fetchCustomersToday = async () => {
     })
 
     let data = await response.json()
-    
+
     return data.status === 'ok' 
       ? data.queueData.queue.customersToday 
       : { err: 'Invalid response'}

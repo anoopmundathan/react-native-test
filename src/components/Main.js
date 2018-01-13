@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text } from 'react-native'
-import { getCustomers } from '../actions/queue_actions';
+import { View, Text, Image, StyleSheet } from 'react-native'
+import { getCustomers } from '../actions/queue_actions'
+import Avatar from './Avatar';
 
 class Main extends Component {
   state = {
@@ -28,7 +29,9 @@ class Main extends Component {
         {customers.map((customer, index) => {
           return(
             <View key={index}>
-              <Text>{customer.customer.name}</Text>
+              <Text>{customer.name}</Text>
+              <Text>{customer.expectedTime}</Text>
+              <Avatar email={customer.email}/>
             </View>
           )
         })}
@@ -50,3 +53,10 @@ const mapStateToProps = ({ customers }) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
+
+var styles = StyleSheet.create({
+  roundedProfileImage: {
+    width:100, height:100, borderWidth:3,
+    borderColor:'white', borderRadius:50
+  }
+})
