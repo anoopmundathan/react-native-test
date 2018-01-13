@@ -22,10 +22,8 @@ export default Avatar
 
 const styles = StyleSheet.create({
   roundedImage: {
-    width:100, 
-    height:100, 
-    borderWidth:3,
-    borderColor:'white', 
-    borderRadius:10
+    width: 80, 
+    height: 80,
+    borderRadius: 20
   }
 })

@@ -2,7 +2,7 @@ import {
   FETCH_CUSTOMERS, 
   FETCH_CUSTOMERS_ERROR } from './types'
 
-import { fetchCustomersToday, fetchAvatar } from '../utils/api'
+import { fetchCustomersToday } from '../utils/api'
 import { pipe, lower, trim, md5Hash } from '../utils/helpers'
 
 export const getCustomers = () => async dispatch  => {
@@ -16,9 +16,9 @@ export const getCustomers = () => async dispatch  => {
     }
 }
 
-const transformQueueData = customers => customers.map(customer => ({
-      name: customer.customer.name,
-      email: customer.customer.emailAddress,
-      expectedTime: customer.expectedTime
+const transformQueueData = customers => customers.map(({customer, expectedTime}) => ({
+      name: customer.name,
+      email: customer.emailAddress,
+      expectedTime
     }
 ))
