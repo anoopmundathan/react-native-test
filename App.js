@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import store from './src/store'
 
 import { StyleSheet, Text, View } from 'react-native'
+import Main from './src/components/Main'
 
 export default class App extends React.Component {
 
@@ -10,7 +11,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <Text>Hello World</Text>
+          <Main />
         </View>
       </Provider>
     )
