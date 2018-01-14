@@ -11,20 +11,33 @@ import { getCustomers } from '../actions/queue_actions'
 class Main extends Component {
   state = {
     loaded: false,
-    text: ''
+    text: '',
+    page: 1
   }
 
   componentDidMount() {
-    this.props.getCustomers()
+    this.props.getCustomers(this.state.page)
       .then(() => {
         this.setState({ loaded: true })
-      })
+    })
+    this.interval = setInterval(this.onTick, 10*1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
+  onTick = () => {
+    this.setState({ page: this.state.page + 1 }, () => {
+      this.props.getCustomers(this.state.page)
+    })
   }
   
   render() {
     const { loaded, text } = this.state
-    let customers = this.props.customers
-    customers = customers.filter(cust => {
+  
+    // filter
+    let customers = this.props.customers.filter(cust => {
       return cust.name.toLowerCase().indexOf(text.toLowerCase()) !== -1
     })
   
@@ -51,7 +64,7 @@ class Main extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCustomers: () => dispatch(getCustomers())
+    getCustomers: (page) => dispatch(getCustomers(page))
   }
 }
 

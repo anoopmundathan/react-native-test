@@ -4,15 +4,16 @@ import {
 
 import { fetchCustomersToday } from '../utils/api'
 
-export const getCustomers = () => async dispatch  => {
-    const data = await fetchCustomersToday()
+export const getCustomers = (page) => async dispatch  => {
 
+    const data = await fetchCustomersToday()
     if(data.err) {
       dispatch( { type: FETCH_CUSTOMERS_ERROR, error: data.err })
     } else {
       const customers = transformQueueData(data)
-      dispatch({ type: FETCH_CUSTOMERS, customers })
+      dispatch({ type: FETCH_CUSTOMERS, customers, page })
     }
+
 }
 
 const transformQueueData = customers => customers.map(({customer, expectedTime}) => ({
