@@ -36,7 +36,9 @@ class List extends Component {
   render() {
 
     const { loaded } = this.state
-    const { text } = this.props
+    const { text, error } = this.props
+
+    // search filter
     const customers = this.props.customers.filter(cust => {
       return cust.name.toLowerCase().indexOf(text.toLowerCase()) !== -1
     })
@@ -49,11 +51,15 @@ class List extends Component {
 
     return(
       <View style={styles.container}>
-        <FlatList 
-          data={customers}
-          renderItem={({ item }) => <ListItem {...item} />}
-          keyExtractor={item => item.email}
-          ItemSeparatorComponent={() => <Seperator />} />
+          
+          {error.error && (<Text>{error.error}</Text>)}
+
+          <FlatList 
+            data={customers}
+            renderItem={({ item }) => <ListItem {...item} />}
+            keyExtractor={item => item.email}
+            ItemSeparatorComponent={() => <Seperator />} />
+      
       </View>
     )
   }
@@ -65,9 +71,10 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const mapStateToProps = ({ customers }) => {
+const mapStateToProps = ({ customers, error }) => {
   return {
-    customers
+    customers,
+    error
   }
 }
 
@@ -77,5 +84,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: '5%'
+  },
+  error: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })

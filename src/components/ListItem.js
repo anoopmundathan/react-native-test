@@ -4,7 +4,6 @@ import {Gravatar, GravatarApi} from 'react-native-gravatar'
 import { Item } from './Item'
 
 export const ListItem = (props) => {
-
   const { name, email, expectedTime } = props
   return(
     <View style={styles.container}>
