@@ -1,14 +1,11 @@
 import { createStore, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
 import reducer from '../reducers'
-import { createLogger } from 'redux-logger'
-
-const middleware = applyMiddleware(thunk, createLogger())
 
 const store = createStore(
   reducer, 
   {},
-  middleware
+  compose(applyMiddleware(thunk))
 )
 
 export default store

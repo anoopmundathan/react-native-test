@@ -4,9 +4,11 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 export const Search = (props) => {
   return(
     <View style={styles.container}>
-      <TextInput 
+      <TextInput
+        value={props.value}
         onChangeText={props.onChange}
         placeholder="Search"
+        underlineColorAndroid='transparent'
         style={styles.input} />
     </View>
   )

@@ -2,11 +2,10 @@ import { combineReducers } from 'redux'
 import { FETCH_CUSTOMERS } from '../actions/types'
 
 const customers = (state=[], action) => {
-  const { customers, page } = action
-  
+  const { customers } = action
   switch(action.type) {
     case FETCH_CUSTOMERS:
-      return page === 1 ? customers : [...state, ...customers]
+      return customers
     default:
       return state
   }
